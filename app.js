@@ -1,4 +1,28 @@
-var express = require('express');
+//Require packages and setport
+const express = require('express');
+const port =3002;
+//Para permitir manejo de POST y PUT
+const bodyParse = require('body-parser');
+const routes = require('./routes/routes');
+const app = express; 
+
+//usar Node.JS body parsing middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencode({
+  extended: true,
+}));
+
+routes(app);
+
+//iniciar el servidor
+const server = app.listen(port, (error) => {
+  if (error) return console.log('Error: ${error}');
+  
+  console.log('El servidor escucha en el puerto ${server.address().port}');
+});
+
+/*var express = require('express');
+
 var app = express();
 
 app.get('/', function(req, res){
@@ -22,4 +46,4 @@ app.get('/despedida', function(req, res){
         
 app.listen(3000, function(){
 console.log('Aplicacion ejemplo, escuchando el puerto 3000');
-});
+});*/;
