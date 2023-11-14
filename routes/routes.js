@@ -45,3 +45,5 @@ app.post('/users', (request, response) => {
 });
 
 }
+
+module.exports = router;

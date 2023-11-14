@@ -2,23 +2,25 @@
 const express = require('express');
 const port =3002;
 //Para permitir manejo de POST y PUT
-const bodyParse = require('body-parser');
+const bodyParser = require('body-parser');
 const routes = require('./routes/routes');
-const app = express; 
+const router = require('./routes/routes');
+const app = express(); 
 
 //usar Node.JS body parsing middleware
-app.use(bodyParse.json());
-app.use(bodyParse.urlencode({
+app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({
   extended: true,
 }));
 
-routes(app);
+router(app);
 
 //iniciar el servidor
 const server = app.listen(port, (error) => {
   if (error) return console.log('Error: ${error}');
   
-  console.log('El servidor escucha en el puerto ${server.address().port}');
+  console.log(`el servidor escucha en el puerto ${server.address().port}`);
 });
 
 /*var express = require('express');
