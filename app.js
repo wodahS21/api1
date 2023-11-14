@@ -7,8 +7,8 @@ const routes = require('./routes/routes');
 const app = express; 
 
 //usar Node.JS body parsing middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencode({
+app.use(bodyParse.json());
+app.use(bodyParse.urlencode({
   extended: true,
 }));
 
@@ -46,4 +46,4 @@ app.get('/despedida', function(req, res){
         
 app.listen(3000, function(){
 console.log('Aplicacion ejemplo, escuchando el puerto 3000');
-});*/;
+});*/

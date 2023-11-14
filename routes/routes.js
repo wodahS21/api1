@@ -22,10 +22,10 @@ pool.query('SELECT * FROM users',
 
 
 //Mostrar un solo usuario por ID
-app.get('/users/:id', (request, response) => {
+app.get('/users/:ID', (request, response) => {
     const id = request.params.id;
     
-    pool.query('SELECT * FROM users WHERE id =?', 
+    pool.query('SELECT * FROM users WHERE ID =?', 
     id, (error, result) => {
         if (error) throw error;
         response.send(result);
@@ -44,4 +44,4 @@ app.post('/users', (request, response) => {
     });
 });
 
-
+}
