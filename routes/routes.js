@@ -45,16 +45,16 @@ app.post('/users', (request, response) => {
     });
 });
 
-//todo Actualizar un usuario existente
-app.put(`/users/:ID`, (request, response) =>{
-    const ID = request.params.ID;
-
+//? Actualizar un usuario existente
+app.put('/users/:ID', (request, response) => {  
+    const ID = request.params.ID; 
     pool.query('UPDATE users SET ? WHERE ID = ?', [request.body, ID], (error, result) => {
+    
         if (error) throw error;
-
         response.send('User update successfully.');
     });
-})
+});
+
 //todo Eliminar usuario
 app.delete(`/users/:ID`, (request, response) => {
 const ID = request.params.ID;
