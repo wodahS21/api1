@@ -24,10 +24,10 @@ pool.query('SELECT * FROM users',
 
 //todo Mostrar un solo usuario por ID
 app.get('/users/:ID', (request, response) => {
-    const id = request.params.id;
+    const ID = request.params.ID;
     
-    pool.query('SELECT * FROM users WHERE ID =?', 
-    id, (error, result) => {
+    pool.query('SELECT * FROM users WHERE ID = ?', 
+    ID, (error, result) => {
         if (error) throw error;
         response.send(result);
     });
@@ -37,7 +37,7 @@ app.get('/users/:ID', (request, response) => {
 
 //todo Agregar un nuevo usuario
 app.post('/users', (request, response) => {
-    pool.query('INSERT INSTO users SET ?', request.body, (error, 
+    pool.query('INSERT INTO users SET ?', request.body, (error, 
         result) => {
         if (error) throw error;
 
