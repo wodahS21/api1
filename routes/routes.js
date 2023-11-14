@@ -1,9 +1,10 @@
-//cargue la conexion del grupo MySQL
+//* cargue la conexion del grupo MySQL
+const { request, response } = require('express');
 const pool = require('../data/config');
 
-//ruta de la app
+//*ruta de la app
 const router = app => {
-//mostrar mensaje de bienvenida de root
+//*mostrar mensaje de bienvenida de root
 app.get('/', (request, response) =>{
     response.send({
         message: 'Bienvenido a Node.js Express REST API!'
@@ -11,7 +12,7 @@ app.get('/', (request, response) =>{
 });
 
 
-//Mostrar todos los usuarios
+//todo Mostrar todos los usuarios
 app.get('/users', (request, response) => {
 pool.query('SELECT * FROM users',
 (error, result) => {
@@ -21,7 +22,7 @@ pool.query('SELECT * FROM users',
 });
 
 
-//Mostrar un solo usuario por ID
+//todo Mostrar un solo usuario por ID
 app.get('/users/:ID', (request, response) => {
     const id = request.params.id;
     
@@ -34,14 +35,34 @@ app.get('/users/:ID', (request, response) => {
 
 
 
-//Agregar un nuevo usuario
+//todo Agregar un nuevo usuario
 app.post('/users', (request, response) => {
-    pool.query('INSERT INSTO users SET ?',
-    request.body, (error, result) => {
+    pool.query('INSERT INSTO users SET ?', request.body, (error, 
+        result) => {
         if (error) throw error;
 
-        response.status(201).send('User added with ID: ${result.insertId}');
+        response.status(201).send(`User added with ID: ${result.insertId}`);
     });
+});
+
+//todo Actualizar un usuario existente
+app.put(`/users/:ID`, (request, response) =>{
+    const ID = request.params.ID;
+
+    pool.query('UPDATE users SET ? WHERE ID = ?', [request.body, ID], (error, result) => {
+        if (error) throw error;
+
+        response.send('User update successfully.');
+    });
+})
+//todo Eliminar usuario
+app.delete(`/users/:ID`, (request, response) => {
+const ID = request.params.ID;
+
+pool.query(`DELETE FROM users WHERE ID =?`, ID, (error, result) => {
+    if (error) throw error;
+    response.send('User Deleted');
+});
 });
 
 }
