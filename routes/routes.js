@@ -77,7 +77,7 @@ pool.query('SELECT * FROM productos',
 });
 
 
-//todo Mostrar un solo usuario por ID
+//todo Mostrar un solo producto por ID
 app.get('/productos/:IdProd', (request, response) => {
     const IdProd = request.params.IdProd;
     
@@ -90,36 +90,92 @@ app.get('/productos/:IdProd', (request, response) => {
 
 
 
-//todo Agregar un nuevo usuario
+//todo Agregar un nuevo producto
 app.post('/productos', (request, response) => {
     pool.query('INSERT INTO productos SET ?', request.body, (error, 
         result) => {
         if (error) throw error;
 
-        response.status(201).send(`User added with IdProd: ${result.insertIdProd}`);
+        response.status(201).send(`Product added with IdProd: ${result.insertIdProd}`);
     });
 });
 
-//? Actualizar un usuario existente
+//todo Actualizar un producto existente
 app.put('/productos/:IdProd', (request, response) => {  
-    const ID = request.params.ID; 
+    const IdProd = request.params.IdProd; 
     pool.query('UPDATE productos SET ? WHERE IdProd = ?', [request.body, IdProd], (error, result) => {
     
         if (error) throw error;
-        response.send('User update successfully.');
+        response.send('Product update successfully.');
     });
 });
 
-//todo Eliminar usuario
+//todo Eliminar producto
 app.delete(`/productos/:IdProd`, (request, response) => {
 const IdProd = request.params.IdProd;
 
 pool.query(`DELETE FROM productos WHERE IdProd =?`, IdProd, (error, result) => {
     if (error) throw error;
-    response.send('User Deleted');
+    response.send('Product Deleted');
 });
 });
 
+
+
+//? ----------------------------------------------------querys de tabla ventas -----------------------------------------------------------
+//todo Mostrar todos los productos
+app.get('/ventas', (request, response) => {
+    pool.query('SELECT * FROM ventas',
+    (error, result) => {
+        if (error) throw error;
+        response.send(result);
+    });
+    });
+    
+    
+    //todo Mostrar un solo producto por ID
+    app.get('/ventas/:IdVenta', (request, response) => {
+        const IdVenta = request.params.IdVenta;
+        
+        pool.query('SELECT * FROM ventas WHERE IdVenta = ?', 
+        IdVenta, (error, result) => {
+            if (error) throw error;
+            response.send(result);
+        });
+        });
+    
+    
+    
+    //todo Agregar un nuevo producto
+    app.post('/ventas', (request, response) => {
+        pool.query('INSERT INTO ventas SET ?', request.body, (error, 
+            result) => {
+            if (error) throw error;
+    
+            response.status(201).send(`Sell added with IdVenta: ${result.insertIdVenta}`);
+        });
+    });
+    
+    //todo Actualizar un producto existente
+    app.put('/ventas/:IdVenta', (request, response) => {  
+        const IdVenta = request.params.IdVenta; 
+        pool.query('UPDATE ventas SET ? WHERE IdVenta = ?', [request.body, IdVenta], (error, result) => {
+        
+            if (error) throw error;
+            response.send('Sell update successfully.');
+        });
+    });
+    
+    //todo Eliminar producto
+    app.delete(`/ventas/:IdVenta`, (request, response) => {
+    const IdVenta = request.params.IdVenta;
+    
+    pool.query(`DELETE FROM ventas WHERE IdVenta =?`, IdVenta, (error, result) => {
+        if (error) throw error;
+        response.send('Sell Deleted');
+    });
+    });
+    
 }
 
 module.exports = router;
